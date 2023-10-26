@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { Observable, take } from 'rxjs';
 import { UserService } from './services';
-import { User } from './models';
 
 @Component({
   selector: 'sudo-root',
@@ -24,8 +22,12 @@ import { User } from './models';
   `,
   styles: [],
 })
-export class AppComponent {
-  user$: Observable<User> = this.userService.init().pipe(take(1));
+export class AppComponent implements OnInit {
+  user$ = this.userService.user$;
 
   constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.userService.init().subscribe();
+  }
 }

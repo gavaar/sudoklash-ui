@@ -1,22 +1,37 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, concatMap, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, concatMap, of, take, tap } from 'rxjs';
 import { User } from 'src/app/models';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  user?: User;
+  get user(): User | null {
+    return this._user.value;
+  }
+  set user(user: User | null) {
+    this._user.next(user);
+  }
 
-  private get token(): string | null {
+  get user$(): Observable<User | null> {
+    return this._user.asObservable();
+  }
+
+  private initialized = false;
+  private _user = new BehaviorSubject<User | null>(null);
+  get token(): string | null {
     return localStorage.getItem('sudo_token');
   }
-  private set token(token: string | null) {
+  set token(token: string | null) {
     if (token) localStorage.setItem('sudo_token', token);
   }
 
   constructor(private https: HttpClient) {}
 
   init(): Observable<User> {
+    if (this.initialized) {
+      return of(this.user!);
+    }
+
     return this.setUserData().pipe(
         concatMap(() => {
           const headers = new HttpHeaders().append('Authorization', `Bearer ${this.token}`);
@@ -33,7 +48,9 @@ export class UserService {
         }),
         tap((user: User) => {
           this.user = user;
+          this.initialized = true;
         }),
+        take(1),
       );
   }
 
