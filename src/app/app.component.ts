@@ -8,19 +8,17 @@ import { UserService } from './services';
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink],
   template: `
+    <header>Hello {{ (user$ | async)?.name }}</header>
     <main>
-      <h1>Hello {{ (user$ | async)?.name }}</h1>
-      <br/>
       <router-outlet></router-outlet>
-      <br/>
-      <a routerLink="">Home</a>
-      <br/>
-      <a routerLink="how-to-play">How to play</a>
-      <br/>
-      <a routerLink="room">Room</a>
     </main>
+    <footer>
+      <a routerLink="">Home</a>
+      <a routerLink="how-to-play">How to play</a>
+      <a routerLink="room">Room</a>
+    </footer>
   `,
-  styles: [],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   user$ = this.userService.user$;

@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+header {
+  background: #0e0e0e;
+  color: #efefef;
+  padding: 0.25rem 1rem;
+}
+
+main {
+  flex-grow: 1;
+}
+
+footer {
+  display:flex;
+  justify-content: space-around;
+  background: #0e0e0e;
+  padding: 0.25rem 1rem;
+  
+  & a {
+    color: #efefef;
+  }
+}
