@@ -3,10 +3,16 @@ import { UserService } from '../user';
 import { Observable, filter, take, tap } from 'rxjs';
 import { WebSocketManager } from './websocket-manager';
 
+interface RoomUser {
+  id: string;
+  username: string;
+  avatar: string;
+}
+
 export interface UserServerMessage {
   message: string;
   room_id: string;
-  users: string[];
+  users: RoomUser[];
 }
 interface UserClientMessage {
   message: string;
@@ -33,7 +39,7 @@ export interface GameServerMessage {
   history: GameServerTurn[];
   game_status: GameStatus,
   current_player_turn: boolean; // t = player_0, f = player_1
-  players: [{ user_id: string }, { user_id: string }]
+  players: [RoomUser, RoomUser]
 }
 type GameUserMessage = GameUserConnect | GameUserTurn;
 
