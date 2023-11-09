@@ -57,6 +57,10 @@ export class RoomWsService {
     return this.gameWs.socketUpdates$;
   }
 
+  get user(): UserServerMessage {
+    return this.userWs.current;
+  }
+
   constructor(private userService: UserService) {}
 
   /**

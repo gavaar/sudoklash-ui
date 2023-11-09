@@ -5,6 +5,10 @@ export class WebSocketManager<T, K> {
   private _webSocket: WebSocketSubject<T | K>;
   private _webSocketSubject = new BehaviorSubject<T>(null as T);
 
+  get current(): T {
+    return this._webSocketSubject.value;
+  }
+
   get socketUpdates$(): Observable<T> {
     return this._webSocketSubject.asObservable().pipe(filter(Boolean));
   }
