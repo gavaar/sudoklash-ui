@@ -6,11 +6,10 @@
       (click)="updateFocus(i)">
       {{ number ?? '' }}
     </span>
-    <button class="sudo-play-pad__submit"
-      [disabled]="submitDisabled"
+    <sudo-send-button class="sudo-play-pad__submit"
+      [disabled]="submitDisabled() || forceDisabled"
       (click)="submitSelection()">
-      ➤
-    </button>
+    </sudo-send-button>
   </div>
   <sudo-numpad
     [disabledPads]="disabledPads()"

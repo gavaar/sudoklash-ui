@@ -1,9 +1,0 @@
-<div class="game-awaiting">
-  <sudo-play-pad *ngIf="isSitting; else justWaiting"
-    (played)="connectToGame($event)">
-  </sudo-play-pad>
-</div>
-
-<ng-template #justWaiting>
-  <p>Waiting for players to choose their numbers...</p>
-</ng-template>

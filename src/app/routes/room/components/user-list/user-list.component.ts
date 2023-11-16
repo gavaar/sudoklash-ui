@@ -15,7 +15,7 @@ import { RoomWsService } from 'src/app/services/websocket/room.wsService';
 export class UserListComponent {
   open = new BehaviorSubject(false);
 
-  userMessage = this.roomService.user$;
+  userMessage = this.roomService.room$;
   gameMessage = this.roomService.game$;
   restUsers = this.open.pipe(
     switchMap((opened: boolean) => {
@@ -23,7 +23,7 @@ export class UserListComponent {
         return of([]);
       }
 
-      return this.roomService.user$.pipe(map(roomUsers => roomUsers.users.slice(2)));
+      return this.roomService.room$.pipe(map(roomUsers => roomUsers.users.slice(2)));
     }),
   );
 

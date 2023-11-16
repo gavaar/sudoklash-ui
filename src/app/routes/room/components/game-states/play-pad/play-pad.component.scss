@@ -24,20 +24,12 @@
   }
 }
 
-.sudo-play-pad__submit {
+.sudo-play-pad__submit::ng-deep .sudo-send-button {
   width: 4rem;
   height: 4rem;
-  border-radius: 50%;
-  background: transparent;
-  border: 0;
-  color: white;
-  background-color: lightblue;
-  font-size: 30px;
-  transform: rotate(-90deg);
 
-  &[disabled] {
-    opacity: 0.5;
-    background-color: lightgray;
-    pointer-events: none;
+  .sudo-send-button__arrow {
+    font-size: 2.5rem;
+    transform: rotate(-90deg);
   }
 }
